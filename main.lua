@@ -1,3 +1,31 @@
+local MAIN_PLACE_ID = 1794233209885
+
+local currentPlaceId = game.PlaceId
+local success, gameInfo = pcall(function()
+    return game:GetService("MarketplaceService"):GetProductInfo(currentPlaceId)
+end)
+
+local isTargetGame = false
+
+if currentPlaceId == MAIN_PLACE_ID then
+    isTargetGame = true
+elseif success and gameInfo then
+    local rootId = gameInfo.UniverseId
+    local mainSuccess, mainInfo = pcall(function()
+        return game:GetService("MarketplaceService"):GetProductInfo(MAIN_PLACE_ID)
+    end)
+    if mainSuccess and mainInfo and mainInfo.UniverseId == rootId then
+        isTargetGame = true
+    end
+end
+
+if not isTargetGame then
+    return
+end
+
+print("対象のタワーディフェンス（メインまたはテレポート先）を検出しました。自動化を実行します！")
+
+
 -- 1. テレポートしたとき（別のゲームやサーバーへ飛んだとき）に自動でこのスクリプトを再実行させる予約
 task.spawn(function()
     pcall(function()
