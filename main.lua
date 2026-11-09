@@ -31,7 +31,8 @@ if queueFunc then
     ]])
 end
 
-local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/jensonhirst/Orion/main/source'))()
+local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
+
 
 local Window = OrionLib:MakeWindow({
     Name = "Cameraman Tower Defence", 
