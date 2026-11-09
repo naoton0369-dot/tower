@@ -1,11 +1,10 @@
 -- 1. テレポートしたとき（別のゲームやサーバーへ飛んだとき）に自動でこのスクリプトを再実行させる予約
-local queuetype = syn and syn.queue_on_teleport or queue_on_teleport
-if queuetype then
-    queuetype([[
-        task.wait(2) -- 読み込み待ち
-        loadstring(game:HttpGet("ここに今のスクリプトのローリンクやコードを入れる"))()
-    ]])
-end
+task.spawn(function()
+    pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/naoton0369-dot/tower/main/main.lua"))()
+    end)
+end)
+
 
 local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/jensonhirst/Orion/main/source'))()
 
