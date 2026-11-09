@@ -23,16 +23,13 @@ if not isTargetGame then
     return
 end
 
-print("対象のタワーディフェンス（メインまたはテレポート先）を検出しました。自動化を実行します！")
-
-
--- 1. テレポートしたとき（別のゲームやサーバーへ飛んだとき）に自動でこのスクリプトを再実行させる予約
-task.spawn(function()
-    pcall(function()
+local queueFunc = syn and syn.queue_on_teleport or queue_on_teleport or (fluxus and fluxus.queue_on_teleport)
+if queueFunc then
+    queueFunc([[
+        task.wait(3)
         loadstring(game:HttpGet("https://raw.githubusercontent.com/naoton0369-dot/tower/main/main.lua"))()
-    end)
-end)
-
+    ]])
+end
 
 local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/jensonhirst/Orion/main/source'))()
 
@@ -69,18 +66,14 @@ FarmTab:AddToggle({
                         local elevator17 = elevators:FindFirstChild("Elevator17")
                         if elevator17 and elevator17:FindFirstChild("BasePart") then
                             rootPart.CFrame = elevator17.BasePart.CFrame + Vector3.new(0, 5, 0)
-                            print("エレベーターに移動しました！")
                             break 
                         end
-                    else
-                        print("今はロビーではないので待機中です...")
                     end
                     
                     task.wait(2)
                 end
             end)
         else
-            print("Auto JoinがOFFになりました")
         end
     end    
 })
